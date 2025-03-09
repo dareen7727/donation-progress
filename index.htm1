@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حملة التبرعات</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        #progress { width: 80%; background-color: #ddd; margin: 20px auto; border-radius: 10px; overflow: hidden; }
+        #progress-bar { width: 0%; height: 30px; background-color: #4CAF50; text-align: center; color: white; line-height: 30px; }
+        img { width: 300px; height: auto; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>حملة التبرعات</h2>
+    <p>المبلغ المطلوب: <span id="goal">1000</span> دينار</p>
+    <p>المبلغ المتبقي: <span id="remaining">1000</span> دينار</p>
+
+    <div id="progress">
+        <div id="progress-bar">0%</div>
+    </div>
+
+    <img id="donation-image" src="blur1.jpg" alt="Progress Image">
+
+    <br><br>
+    <button onclick="updateProgress(100)">تبرع بـ 100 دينار (تجربة)</button>
+
+    <script>
+        let goalAmount = 1000; // المبلغ المطلوب
+        let currentAmount = 0; // المبلغ اللي تم جمعه
+
+        function updateProgress(donation) {
+            currentAmount += donation;
+            let remaining = goalAmount - currentAmount;
+            if (remaining < 0) remaining = 0;
+            document.getElementById("remaining").innerText = remaining;
+            
+            let progressPercentage = (currentAmount / goalAmount) * 100;
+            document.getElementById("progress-bar").style.width = progressPercentage + "%";
+            document.getElementById("progress-bar").innerText = Math.round(progressPercentage) + "%";
+
+            // تحديث الصورة بناءً على التقدم
+            if (progressPercentage >= 75) {
+                document.getElementById("donation-image").src = "clear.jpg";
+            } else if (progressPercentage >= 50) {
+                document.getElementById("donation-image").src = "blur2.jpg";
+            } else if (progressPercentage >= 25) {
+                document.getElementById("donation-image").src = "blur3.jpg";
+            }
+        }
+    </script>
+
+</body>
+</html>
